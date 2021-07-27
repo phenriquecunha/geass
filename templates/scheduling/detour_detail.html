@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block style_sheets %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="{% static 'admin-lte/plugins/fontawesome-free/css/all.min.css' %}">
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="{% static 'admin-lte/dist/css/adminlte.min.css' %}">
+<!-- Google Font: Source Sans Pro -->
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+{% endblock %}
+
+{% block title %}Detalhe do desvio da equipe {{ detour.get_technical }}{% endblock title %}
+
+{% block content %}
+<div class="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Detalhe do desvio</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{ detour.get_technical }}</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+              <i class="fas fa-minus"></i></button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+              <i class="fas fa-times"></i></button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+              <div class="row">
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Instações feitas</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ detour.installations }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Base do calculo do desvio</span>
+                      <span class="info-box-number text-center text-muted mb-0">5</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                  <div class="info-box bg-light">
+                    <div class="info-box-content">
+                      <span class="info-box-text text-center text-muted">Desvio</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ detour.get_devation }}<span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <h4>Justificativa da equipe</h4>
+                  <div class="post">
+                    <div class="user-block">
+                      <img class="img-circle img-bordered-sm" src="{% static 'admin-lte/dist/img/avatar04.png' %}" alt="user image">
+                      <span class="username">
+                        <h3>{{ detour.get_technical }}</h3>
+                      </span>
+                      <span class="description">{{ detour.date }}</span>
+                    </div>
+                    <!-- /.user-block -->
+                    <p>
+                      {{ detour.justification }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
+              <h3 class="text-primary"><i class="fas fa-paint-brush"></i> AdminLTE v3</h3>
+              <p class="text-muted">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu
+                stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
+              <br>
+              <div class="text-muted">
+                <p class="text-sm">Client Company
+                  <b class="d-block">Deveint Inc</b>
+                </p>
+                <p class="text-sm">Project Leader
+                  <b class="d-block">Tony Chicken</b>
+                </p>
+              </div>
+              <h5 class="mt-5 text-muted">Project files</h5>
+              <ul class="list-unstyled">
+                <li>
+                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i>
+                    Functional-requirements.docx</a>
+                </li>
+                <li>
+                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> UAT.pdf</a>
+                </li>
+                <li>
+                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-envelope"></i>
+                    Email-from-flatbal.mln</a>
+                </li>
+                <li>
+                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-image "></i> Logo.png</a>
+                </li>
+                <li>
+                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i>
+                    Contract-10_12_2014.docx</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+{% endblock %}

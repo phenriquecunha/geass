@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load widget_tweaks %}
+
+{% block style_sheets %}
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{% static 'admin-lte/plugins/select2/css/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+{% endblock %}
+
+{% block title %}Atualização de Desvio: {{ detour.get_technical }}{% endblock title %}
+
+{% block content %}
+  <h2>Atualizar informações de desvio de: {{ detour.get_technical }}</h2>
+  <form method="post">
+    {% csrf_token %}
+
+    {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+
+    {% for field in form.visible_fields %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {% if field.name == 'technical' %}
+                {% render_field form.technical class+='form-control select2' %}
+            {% else %}
+                {{ field|add_class:'form-control' }}
+            {% endif %}
+            {% for error in field.errors %}
+                <span class="help-block">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-success">
+        <span class="glyphicon glyphicon-ok"></span> Salvar mudanças
+      </button>
+      <a href="{% url 'pages:home' %}" class="btn btn-default">Cancelar</a>
+    </div>
+  </form>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'admin-lte/plugins/select2/js/select2.full.min.js' %}"></script>
+<script>
+    $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Initialize Select2 Elements
+    $('.select2bs4').select2({
+      theme: 'bootstrap4'
+    })
+  })
+</script>
+{% endblock script %}

@@ -22,7 +22,7 @@ class Detour(TimeStampedModel):
     date = models.DateField("Data")
     installations = models.IntegerField("Instalações")
     justification = models.TextField("Justificativa")
-    technical = models.ManyToManyField(Technician, "Técnicos")
+    technical = models.ManyToManyField(Technician, verbose_name="Técnicos")
 
     def __str__(self):
         return '\n'.join([t.name for t in self.technical.all()])

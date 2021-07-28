@@ -17,7 +17,13 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path("", include('pages.urls')),
+    # django admin
     path('admin/', admin.site.urls),
+
+    # user management
+    path('accounts/', include('allauth.urls')),
+
+    # local
+    path('', include('pages.urls')),
     path("scheduling/", include('scheduling.urls')),
 ]

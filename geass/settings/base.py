@@ -33,6 +33,9 @@ INSTALLED_APPS = [
     "adminlte3",
     "adminlte3_theme",
     "widget_tweaks",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
 
     # apps do django
     "django.contrib.admin",
@@ -41,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
   
     # meus apps
     "users.apps.UsersConfig",
@@ -63,7 +67,7 @@ ROOT_URLCONF = 'geass.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,3 +142,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # User Model
 AUTH_USER_MODEL = 'users.User'
+
+#django-allauth
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+

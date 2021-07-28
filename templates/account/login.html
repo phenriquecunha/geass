@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load widget_tweaks %}
+
+{% block title %}Entrar{% endblock %}
+
+{% block content %}
+<div class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="../../index2.html"><b>CODE</b>GEASS</a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Entrar</p>
+                <form method="post">
+                    {% csrf_token %}
+
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+
+                    {% for field in form.visible_fields %}
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {% if field.name == 'email' %}
+                            {% render_field form.email type='hidden' %}
+                        {% else %}
+                            {{ field|add_class:'form-control' }}
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <span class="help-block">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                        </div>
+                    </div>
+                </form>
+                <p class="mb-1">
+                    <a href="forgot-password.html">Esqueci minha senha</a>
+                </p>
+                <p class="mb-0">
+                    <a href="register.html" class="text-center">Registrar um novo membro</a>
+                </p>
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+    <!-- /.login-box -->
+</div>
+{% endblock %}

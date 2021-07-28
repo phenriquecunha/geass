@@ -38,26 +38,12 @@
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="{% url 'pages:home' %}" class="nav-link">Home</a>
                 </li>
+                {% if request.user.is_authenticated %}
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="/admin" class="nav-link">Admin</a>
                 </li>
+                {% endif %}
             </ul>
-
-            {% block nav_bar_center %}
-            <!-- SEARCH FORM -->
-            <form class="form-inline ml-3">
-                <div class="input-group input-group-sm">
-                    <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                        aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-navbar" type="submit">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-            {% endblock %}
-
             {% block nav_custom_menu %}
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
@@ -94,11 +80,24 @@
                             <div class="dropdown-divider"></div>
                             <div class="dropdown-footer">
                                 <a href="{% block change_password_url %}{% url 'admin:password_change' %}{% endblock %}"
-                                    class="btn btn-primary btn-sm">{% trans 'Change password' %}</a>
-                                <a href="{% block logout_url %}{% logout_url %}{% endblock %}"
-                                    class="btn btn-danger btn-sm">{%trans 'Sign out'%}</a>
+                                    class="btn btn-primary btn-sm">{% trans 'Troca de senha' %}</a>
+                                <a href="{% url 'account_logout' %}"
+                                    class="btn btn-danger btn-sm">{% trans 'Sair' %}</a>
                             </div>
                         </div>
+                    </li>
+                    {% else %}
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a class="nav-link" href="{% url 'account_login' %}">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Entrar
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block">
+                        <a class="nav-link" href="{% url 'account_signup' %}">
+                            <i class="fas fa-user-plus"></i>
+                            Cadastro
+                        </a>
                     </li>
                     {% endif %}
                     {% endblock user_info %}
@@ -126,6 +125,7 @@
                 <!-- Sidebar user panel -->
                 {% block user_panel %}
                 <!-- Sidebar user panel (optional) -->
+                {% if request.user.is_authenticated %}
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
                         <img src="{% avatar_url size=90 %}" class="img-circle elevation-2" alt="User Image">
@@ -134,12 +134,14 @@
                         <a href="#" class="d-block">{% firstof request.user.get_full_name request.user.username %}</a>
                     </div>
                 </div>
+                {% endif %}
                 {% endblock %}
 
                 {% block form %}{% endblock %}
 
                 <!-- sidebar menu: : style can be found in sidebar.less -->
                 {% block nav_links_ul %}
+                {% if request.user.is_authenticated %}
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
@@ -170,6 +172,7 @@
                         {% endblock nav_links_outer %}
                     </ul>
                 </nav>
+                {% endif %}
                 {% endblock nav_links_ul %}
             </div>
             <!-- /.sidebar -->

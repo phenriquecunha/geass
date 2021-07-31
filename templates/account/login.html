@@ -8,7 +8,7 @@
 <div class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>CODE</b>GEASS</a>
+            <a href="{% url 'pages:home' %}"><b>CODE</b>GEASS</a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
@@ -40,11 +40,8 @@
                         </div>
                     </div>
                 </form>
-                <p class="mb-1">
-                    <a href="forgot-password.html">Esqueci minha senha</a>
-                </p>
                 <p class="mb-0">
-                    <a href="register.html" class="text-center">Registrar um novo membro</a>
+                    <a href="{% url 'account_signup' %}" class="text-center">Registrar um novo membro</a>
                 </p>
             </div>
             <!-- /.login-card-body -->

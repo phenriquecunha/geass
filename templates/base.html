@@ -224,8 +224,12 @@
     {% include 'adminlte/lib/_scripts.html' %}
     {% block js %}{% endblock %}
     {% endblock %}
-    {% block script %}{% endblock script %}
-    {% block extra_js %}{% endblock %}
+    {% block script %}
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js"
+    integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+    {% endblock script %}
+    {% block extra_js %}
+    {% endblock %}
     {% block extra_foot %}{% endblock %}
 </body>
 

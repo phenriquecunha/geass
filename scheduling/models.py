@@ -21,14 +21,12 @@ class Technician(TimeStampedModel):
 class Detour(TimeStampedModel):
     date = models.DateField("Data")
     installations = models.IntegerField("Instalações")
+    detour = models.IntegerField("Desvio", null=True)
     justification = models.TextField("Justificativa")
     technical = models.ManyToManyField(Technician, verbose_name="Técnicos")
 
     def __str__(self):
         return '\n'.join([t.name for t in self.technical.all()])
-
-    def get_devation(self):
-        return 5 - self.installations
     
     def get_technical(self):
         return '\n'.join([t.name for t in self.technical.all()])

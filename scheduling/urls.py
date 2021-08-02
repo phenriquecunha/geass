@@ -7,7 +7,7 @@ from .views import DetourCreateView, DetourListView, DetourDetailView, DetourUpd
 app_name = "scheduling"
 
 urlpatterns = [
-    path('detour_list', DetourListView.as_view(), name='detour_list'),
+    path('detour_list/', DetourListView.as_view(), name='detour_list'),
     path('detour_form/', DetourCreateView.as_view(), name="detour_form"),
     path('detour_detail/(?P<pk>\d+)/', DetourDetailView.as_view(), name='detour_detail'),
     path('detour_update/(?P<pk>\d+)/', DetourUpdateView.as_view(), name='detour_update'),

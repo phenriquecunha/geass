@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from .models import Team, Technician, Detour, Request
 
-
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
     list_display = [
@@ -23,9 +22,9 @@ class TechnicianAdmin(admin.ModelAdmin):
 @admin.register(Detour)
 class DetourAdmin(admin.ModelAdmin):
     list_display = [
-        'get_devation',
         'date',
         'installations',
+        'detour',
         'justification',
         'get_technical',
     ]

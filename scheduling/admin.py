@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Team, Technician, Detour, Request
+from .models import Team, DailyMonitoring, TypeOfRequest, Technician, Detour, Request
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
@@ -19,6 +19,25 @@ class TechnicianAdmin(admin.ModelAdmin):
         'team'
     ]
 
+@admin.register(DailyMonitoring)
+class DailyMonitoringAdmin(admin.ModelAdmin):
+    list_display = [
+        '__str__',
+        'current_balance',
+        'open',
+        'completed',
+        'previous_balance',
+        'type_of_request'
+    ]
+
+@admin.register(TypeOfRequest)
+class TypeOfRequestAdmin(admin.ModelAdmin):
+    list_display = [
+        '__str__',
+        'name',
+        'weight',
+    ]
+
 @admin.register(Detour)
 class DetourAdmin(admin.ModelAdmin):
     list_display = [
@@ -35,10 +54,10 @@ class RequestAdmin(admin.ModelAdmin):
     list_display = [
         '__str__',
         'protocol',
-        'type',
         'local',
         'status',
         'note',
         'r_factor',
+        'type_of_request',
         'team',
     ]

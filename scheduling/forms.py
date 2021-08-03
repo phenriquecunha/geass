@@ -9,6 +9,7 @@ class DetourCreateForm(forms.ModelForm):
         fields =  [
             'date',
             'installations',
+            'calculation_basis',
             'justification',
             'technical',
         ]

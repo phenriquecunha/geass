@@ -1,6 +1,9 @@
 from django.db import models
+from django.db.models.fields import BigIntegerField
 from django.db.models.fields.related import ForeignKey
+from django.db.models.signals import post_save
 from model_utils.models import TimeStampedModel
+
 from django.urls import reverse
 
 class Team(TimeStampedModel):
@@ -39,6 +42,8 @@ class Detour(TimeStampedModel):
 
     def get_absolute_url_for_delete(self):
         return reverse('scheduling:detour_list', kwargs={'pk': self.id})
+    
+        
 
 class Request(TimeStampedModel):
     protocol = models.IntegerField(primary_key=True),
@@ -53,4 +58,7 @@ class Request(TimeStampedModel):
         return f'{self.protocol}'
 
 
+def calculateDetour(sender, instance, created, **kwargs):
+        Detour.objects.filter(id = instance.id).update(detour = (5 - instance.installations))
 
+post_save.connect(calculateDetour, sender=Detour)

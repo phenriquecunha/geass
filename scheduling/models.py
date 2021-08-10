@@ -16,6 +16,7 @@ class Team(TimeStampedModel):
 class Technician(TimeStampedModel):
     name = models.CharField("Nome", max_length=255)
     telephone = models.CharField("Telefone", max_length=255)
+    score = models.FloatField("Pontuação", default=0)
     team = ForeignKey(Team, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -48,10 +49,10 @@ class Detour(TimeStampedModel):
     technical = models.ManyToManyField(Technician, verbose_name="Técnicos")
 
     def __str__(self):
-        return '\n'.join([t.name for t in self.technical.all()])
+        return ' e '.join([t.name for t in self.technical.all()])
     
     def get_technical(self):
-        return '\n'.join([t.name for t in self.technical.all()])
+        return ' e '.join([t.name for t in self.technical.all()])
     
     def get_absolute_url_for_detail(self):
         return reverse('scheduling:detour_detail', kwargs={'pk': self.id})
@@ -61,7 +62,19 @@ class Detour(TimeStampedModel):
 
     def get_absolute_url_for_delete(self):
         return reverse('scheduling:detour_list', kwargs={'pk': self.id})
-    
+
+class AttachmentsDetour(models.Model):
+    detour = models.ForeignKey(
+        Detour, 
+        on_delete=models.CASCADE, 
+        null=True, 
+        verbose_name='anexos',
+        related_name='images'
+    )
+    image = models.ImageField(null=False, blank=False, upload_to='%Y/%m/%d')
+
+    def __str__(self):
+        return str(self.detour)
         
 class Request(TimeStampedModel):
     protocol = models.IntegerField(primary_key=True),

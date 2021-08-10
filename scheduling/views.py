@@ -3,15 +3,22 @@ from django.shortcuts import redirect
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 
 from .forms import DetourCreateForm
-from .models import Detour
+from .models import AttachmentsDetour, Detour
 
 class DetourCreateView(CreateView):
     model = Detour
     form_class = DetourCreateForm
 
-    def form_valid(self, form: Detour): 
+    def form_valid(self, form: Detour):
         if self.request:
-            form.save()
+            detour = form.save()
+            images = self.request.FILES.getlist('images')
+
+            for image in images:
+                AttachmentsDetour.objects.create(
+                    detour = detour,
+                    image = image
+                )
 
             return redirect('scheduling:detour_form')
             
@@ -31,7 +38,14 @@ class DetourUpdateView(UpdateView):
 
     def form_valid(self, form: Detour): 
         if self.request:
-            form.save()
+            detour = form.save()
+            images = self.request.FILES.getlist('images')
+
+            for image in images:
+                AttachmentsDetour.objects.create(
+                    detour = detour,
+                    image = image
+                )
 
             return redirect('scheduling:detour_list')
             

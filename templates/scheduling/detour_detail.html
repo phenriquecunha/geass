@@ -57,7 +57,7 @@
                   <div class="info-box bg-light">
                     <div class="info-box-content">
                       <span class="info-box-text text-center text-muted">Base do calculo do desvio</span>
-                      <span class="info-box-number text-center text-muted mb-0">5</span>
+                      <span class="info-box-number text-center text-muted mb-0">{{ detour.calculation_basis }}</span>
                     </div>
                   </div>
                 </div>
@@ -89,39 +89,16 @@
               </div>
             </div>
             <div class="col-12 col-md-12 col-lg-4 order-1 order-md-2">
-              <h3 class="text-primary"><i class="fas fa-paint-brush"></i> AdminLTE v3</h3>
-              <p class="text-muted">Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu
-                stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
-              <br>
-              <div class="text-muted">
-                <p class="text-sm">Client Company
-                  <b class="d-block">Deveint Inc</b>
-                </p>
-                <p class="text-sm">Project Leader
-                  <b class="d-block">Tony Chicken</b>
-                </p>
-              </div>
-              <h5 class="mt-5 text-muted">Project files</h5>
-              <ul class="list-unstyled">
-                <li>
-                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i>
-                    Functional-requirements.docx</a>
-                </li>
-                <li>
-                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-pdf"></i> UAT.pdf</a>
-                </li>
-                <li>
-                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-envelope"></i>
-                    Email-from-flatbal.mln</a>
-                </li>
-                <li>
-                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-image "></i> Logo.png</a>
-                </li>
-                <li>
-                  <a href="" class="btn-link text-secondary"><i class="far fa-fw fa-file-word"></i>
-                    Contract-10_12_2014.docx</a>
-                </li>
-              </ul>
+              <h3 class="text-primary"><i class="fas fa-paint-brush"></i> Anexos de Desvio</h3>
+              {% for item in object.images.all %}
+                {% if item.image %}
+                  <div class="col-sm-12">
+                    <a href="{{ item.image.url }}" data-toggle="lightbox" data-title="{{ item.image }}">
+                      <img src="{{ item.image.url }}" class="img-fluid mb-2" alt="{{ item.image }}"/>
+                    </a>
+                  </div>
+                {% endif %}
+              {% endfor %}
             </div>
           </div>
         </div>
@@ -133,3 +110,29 @@
   </div>
   <!-- /.content-wrapper -->
 {% endblock %}
+
+{% block script %}
+  <!-- jQuery -->
+  <script src="{% static 'admin-lte/plugins/jquery/jquery.min.js' %}"></script>
+  <!-- Bootstrap -->
+  <script src="{% static 'admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <!-- jQuery UI -->
+  <script src="{% static 'admin-lte/plugins/jquery-ui/jquery-ui.min.js' %}"></script>
+  <!-- Ekko Lightbox -->
+  <script src="{% static 'admin-lte/plugins/ekko-lightbox/ekko-lightbox.min.js' %}"></script>
+  <!-- AdminLTE App -->
+  <script src="{% static 'admin-lte/dist/js/adminlte.min.js' %}"></script>
+  <!-- AdminLTE for demo purposes -->
+  <script src="{% static 'admin-lte/dist/js/demo.js' %}"></script>
+  <!-- Page specific script -->
+  <script>
+    $(function () {
+      $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox({
+          alwaysShowClose: true
+        });
+      });
+    })
+  </script>
+{% endblock script %}

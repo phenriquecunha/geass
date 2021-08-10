@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Team, DailyMonitoring, TypeOfRequest, Technician, Detour, Request
+from .models import Team, DailyMonitoring, TypeOfRequest, Technician, Detour, Request, AttachmentsDetour
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
@@ -46,6 +46,13 @@ class DetourAdmin(admin.ModelAdmin):
         'detour',
         'justification',
         'get_technical',
+    ]
+
+@admin.register(AttachmentsDetour)
+class AttachmentsDetourAdmin(admin.ModelAdmin):
+    list_display = [
+        '__str__',
+        'image'
     ]
 
 

@@ -13,9 +13,3 @@ urlpatterns = [
     path('detour_update/?P<pk>\d+/', DetourUpdateView.as_view(), name='detour_update'),
     path('detour_delete/?P<pk>\d+/', DetourDeleteView.as_view(), name='detour_list'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-if settings.DEBUG:
-    urlpatterns += static(
-        settings.MEDIA_URL,
-        documment_root=settings.MEDIA_ROOT,
-    )

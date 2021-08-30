@@ -46,7 +46,8 @@ INSTALLED_APPS = [
   
     # meus apps
     "users.apps.UsersConfig",
-    "scheduling.apps.SchedulingConfig"
+    "scheduling.apps.SchedulingConfig",
+    "attendance.apps.AttendanceConfig",
 ]
 
 MIDDLEWARE = [

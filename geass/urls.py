@@ -13,7 +13,8 @@ urlpatterns = [
 
     # local
     path('', include('pages.urls')),
-    path("scheduling/", include('scheduling.urls')),
+    path('scheduling/', include('scheduling.urls')),
+    path('attendance/', include('attendance.urls'))
 ]
 
 if settings.DEBUG:

@@ -46,6 +46,7 @@ class Detour(TimeStampedModel):
     detour = models.IntegerField("Desvio", null=True)
     calculation_basis = models.IntegerField("Base do calculo", default=5)
     justification = models.TextField("Justificativa")
+    cause = models.CharField(verbose_name="Causa do atraso", max_length=255)
     technical = models.ManyToManyField(Technician, verbose_name="Técnicos")
 
     def __str__(self):
@@ -64,17 +65,19 @@ class Detour(TimeStampedModel):
         return reverse('scheduling:detour_list', kwargs={'pk': self.id})
 
 class AttachmentsDetour(models.Model):
+    name = models.CharField(verbose_name="Nome", max_length=255)
+    description = models.TextField(verbose_name="Descrição")
+    image = models.ImageField(upload_to='detour/%Y/%m/%d')
     detour = models.ForeignKey(
         Detour, 
         on_delete=models.CASCADE, 
         null=True, 
-        verbose_name='anexos',
+        verbose_name='Desvio',
         related_name='images'
     )
-    image = models.ImageField(null=False, blank=False, upload_to='%Y/%m/%d')
 
     def __str__(self):
-        return str(self.detour)
+        return str(self.name)
         
 class Request(TimeStampedModel):
     protocol = models.IntegerField(primary_key=True),

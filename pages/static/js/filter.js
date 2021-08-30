@@ -1,6 +1,5 @@
 $( document ).ready(function() {
-    var baseUrl   = 'https://aqueous-shore-32315.herokuapp.com/';
-    //var baseUrl   = 'http://127.0.0.1:8000/';
+    var baseUrl   = 'http://192.168.88.123:8000/';
     var filter     = $('#filter')
 
     $(filter).change(function() {

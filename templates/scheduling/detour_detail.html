@@ -93,8 +93,9 @@
               {% for item in object.images.all %}
                 {% if item.image %}
                   <div class="col-sm-12">
-                    <a href="{{ item.image.url }}" data-toggle="lightbox" data-title="{{ item.image }}">
-                      <img src="{{ item.image.url }}" class="img-fluid mb-2" alt="{{ item.image }}"/>
+                    <a href="{{ item.image.url }}" data-toggle="lightbox" data-title="{{ item.name }}">
+                      <img src="{{ item.image.url }}" class="img-fluid mb-2" alt="{{ item.name }}"/>
+                      <p>{{ item.description }}</p>
                     </a>
                   </div>
                 {% endif %}

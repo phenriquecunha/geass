@@ -13,11 +13,14 @@ class DetourCreateView(CreateView):
         if self.request:
             detour = form.save()
             images = self.request.FILES.getlist('images')
+            formDetour = self.request.POST
 
             for image in images:
                 AttachmentsDetour.objects.create(
+                    name = formDetour['name'],
+                    description = formDetour['description'],
+                    image = image,
                     detour = detour,
-                    image = image
                 )
 
             return redirect('scheduling:detour_form')
@@ -40,11 +43,14 @@ class DetourUpdateView(UpdateView):
         if self.request:
             detour = form.save()
             images = self.request.FILES.getlist('images')
+            formDetour = self.request.POST
 
             for image in images:
                 AttachmentsDetour.objects.create(
+                    name = formDetour['name'],
+                    description = formDetour['description'],
+                    image = image,
                     detour = detour,
-                    image = image
                 )
 
             return redirect('scheduling:detour_list')

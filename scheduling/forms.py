@@ -9,6 +9,7 @@ class DetourCreateForm(forms.ModelForm):
             'installations',
             'calculation_basis',
             'justification',
+            'cause',
             'technical',
         ]
         widgets = {
@@ -28,6 +29,10 @@ class DetourCreateForm(forms.ModelForm):
             'justification': forms.Textarea(attrs={
                 'class': 'form-control',
                 'placeholder': 'Digite a justificava da equipe'
+            }),
+            'cause': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Digite a causa principal'
             }),
             'technical': forms.SelectMultiple(attrs={
                 'class': 'form-control select2',

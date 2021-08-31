@@ -1,3 +1,14 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Register
+
+@admin.register(Register)
+class TeamAdmin(admin.ModelAdmin):
+    list_display = [
+        '__str__',
+        'date',
+        'protocol',
+        'type_of_request',
+        'sent_to',
+        'clerk'
+    ]

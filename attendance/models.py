@@ -11,18 +11,19 @@ User = settings.AUTH_USER_MODEL
 
 class Register(TimeStampedModel):
     SENT_TO_CHOICES = (
-        ("A", "ENCAMINHADO PARA AGENDAMENTO"),
-        ("F", "ENCAMINHADO PARA FECHAMENTO"),
-        ("AF", "ENCAMINHADO PARA AGUARDANDO FECHAMENTO"),
-        ("AC", "ENCAMINHADO PARA AGUARDANDO CONTATO"),
+        ("AG" ,"AGENDAMENTO"),
+        ("F", "FECHAMENTO"),
+        ("AF", "AGUARDANDO FECHAMENTO"),
+        ("AC","AGUARDANDO CONTATO"),
+        ("EA", "EM ANALISE"),
     )
 
     SENT_FROM_CHOICES = (
-        ("A", "ANDAMENTO"),
+        ("AN", "ANDAMENTO"),
         ("AC", "AGUARDANDO CONTATO"),
         ("AF", "AGUARDADO FECHAMENTO"),
         ("EA", "EM ANALISE"),
-        ("CH", "CHAT")
+        ("CH","CHAT")
     )
 
     date = models.DateField(verbose_name='Data de registro',  auto_now_add=True)
@@ -34,3 +35,34 @@ class Register(TimeStampedModel):
 
     def __str__(self):
         return str(self.protocol)
+
+class Service(TimeStampedModel):
+    nameFlat = models.CharField('Nome do plano', max_length=255)
+    infrastructure = models.CharField('Infraestrutura', max_length=255)
+    user = models.ForeignKey(User, on_delete=CASCADE)
+
+class Client(TimeStampedModel):
+    name = models.CharField('Nome', max_length=255)
+    city = models.CharField('Cidade', max_length=255)
+    district = models.CharField('Bairro', max_length=255)
+    street = models.CharField('Rua', max_length=255)
+    latitude = models.FloatField(null=True)
+    longitude = models.FloatField(null=True)
+    service = models.ForeignKey(Service, on_delete=CASCADE)
+    user = models.ForeignKey(User, on_delete=CASCADE)
+
+class Question(TimeStampedModel):
+    name = models.CharField('Nome', max_length=255)
+    answer = models.CharField('Resposta', max_length=255)
+
+
+class Quiz(TimeStampedModel):
+    name = models.CharField('Nome', max_length=255)
+    client = models.ForeignKey(Client, on_delete=CASCADE)
+    questions = models.ForeignKey(Question, on_delete=CASCADE)
+    note = models.TextField('Observação')
+
+
+
+
+

@@ -17,5 +17,41 @@ class RegisterAdmin(admin.ModelAdmin):
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     list_display = [
-         
+         '__str__',
+         'city',
+         'district',
+         'street',
+         'latitude',
+         'longitude',
+         'service',
+         'user',
+    ]
+
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    list_display = [
+        '__str__',
+        'name',
+        'answer',
+        'user',
+    ]
+
+@admin.register(Quiz)
+class QuizAdmin(admin.ModelAdmin):
+    list_display = [
+        '__str__',
+        'name',
+        'client',
+        'questions',
+        'note',
+        'user',
+    ]
+
+@admin.register(Service)
+class QuizAdmin(admin.ModelAdmin):
+    list_display = [
+        '__str__',
+        'nameFlat',
+        'infrastructure',
+        'user',
     ]

@@ -26,9 +26,16 @@ class Register(TimeStampedModel):
         ("CH","CHAT")
     )
 
+    COMPANY_CHOICES = (
+        ("HUP", "HUP TELECOM"),
+        ("VNT", "VOANET TELECOM"),
+        ("DGT", "DIGITAL TELECOM"),
+    )
+
     date = models.DateField(verbose_name='Data de registro',  auto_now_add=True)
     protocol = models.IntegerField(verbose_name='Protocolo de atendimento', primary_key=True)
     type_of_request = models.ForeignKey(TypeOfRequest, verbose_name="Tipo de solicitação", on_delete=CASCADE)
+    company = models.CharField(verbose_name='Empresa', choices=COMPANY_CHOICES, max_length=255, null=True)
     sent_from = models.CharField(verbose_name="Encaminhado de", max_length=255, choices=SENT_FROM_CHOICES, null=True)
     sent_to = models.CharField(verbose_name="Encaminhado para", max_length=255, choices=SENT_TO_CHOICES, null=True)
     clerk = models.ForeignKey(User, verbose_name="Atendente", on_delete=CASCADE)
@@ -39,7 +46,10 @@ class Register(TimeStampedModel):
 class Service(TimeStampedModel):
     nameFlat = models.CharField('Nome do plano', max_length=255)
     infrastructure = models.CharField('Infraestrutura', max_length=255)
-    user = models.ForeignKey(User, on_delete=CASCADE)
+    user = models.ForeignKey(User, on_delete=CASCADE, null=True)
+
+    def __str__(self):
+        return self.nameFlat
 
 class Client(TimeStampedModel):
     name = models.CharField('Nome', max_length=255)
@@ -49,18 +59,28 @@ class Client(TimeStampedModel):
     latitude = models.FloatField(null=True)
     longitude = models.FloatField(null=True)
     service = models.ForeignKey(Service, on_delete=CASCADE)
-    user = models.ForeignKey(User, on_delete=CASCADE)
+    user = models.ForeignKey(User, on_delete=CASCADE, null=True)
+
+    def __str__(self):
+        return self.name
 
 class Question(TimeStampedModel):
     name = models.CharField('Nome', max_length=255)
-    answer = models.CharField('Resposta', max_length=255)
-
+    answer = models.IntegerField('Resposta', max_length=255)
+    user = models.ForeignKey(User, on_delete=CASCADE, null=True)
+    
+    def __str__(self):
+        return self.name
 
 class Quiz(TimeStampedModel):
     name = models.CharField('Nome', max_length=255)
     client = models.ForeignKey(Client, on_delete=CASCADE)
     questions = models.ForeignKey(Question, on_delete=CASCADE)
     note = models.TextField('Observação')
+    user = models.ForeignKey(User, on_delete=CASCADE, null=True)
+
+    def __str__(self):
+        return self.name
 
 
 

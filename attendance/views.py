@@ -3,7 +3,9 @@ from django.shortcuts import redirect
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 
 from .forms import RegisterCreateForm
-from .models import Register
+from .models import Register, Quiz
+
+#Registro de Atendimento
 
 class RegisterCreateView(CreateView):
     model = Register
@@ -22,3 +24,27 @@ class RegisterListView(ListView):
 
 class RegisterDetailView(DetailView):
     model = Register
+
+
+#NPS
+class ControlQualityView(CreateView):
+
+    def formCreateControlQuality(self):
+        formCQ = self.request.POST
+
+        Quiz.objects.create(
+            name = 'Controle de satisfação do cliente VOANET',
+            client = formCQ['client'],
+            note = formCQ['note'],
+            user = formCQ['user'],
+        )
+
+
+
+
+
+        
+
+
+
+

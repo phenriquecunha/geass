@@ -2,8 +2,8 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 
-from .forms import RegisterCreateForm
-from .models import Register, Quiz
+from .forms import RegisterCreateForm, QuizCreateForm
+from .models import Register, Quiz, Client, Question
 
 #Registro de Atendimento
 
@@ -28,16 +28,42 @@ class RegisterDetailView(DetailView):
 
 #NPS
 class ControlQualityView(CreateView):
+    model = Quiz
+    form_class = QuizCreateForm
 
-    def formCreateControlQuality(self):
-        formCQ = self.request.POST
+    def form_valid(self, form: Quiz):
+        formPost = self.request.POST
+        user = self.request.user
 
-        Quiz.objects.create(
-            name = 'Controle de satisfação do cliente VOANET',
-            client = formCQ['client'],
-            note = formCQ['note'],
-            user = formCQ['user'],
-        )
+        if self.request:
+            question_1 = Question.objects.create(
+                name = 'De 0 a 10 . . .',
+                answer = formPost['answer_1'],
+                user = user
+            )
+
+            question_2 = Question.objects.create(
+                name = formPost['name_question_2'],
+                answer = formPost['answer_2'],
+                user = user
+            )
+
+            Question.objects.create(
+                name = formPost['name_question_3'],
+                answer = formPost['answer_3'],
+                user = user
+            )
+
+            form.name = 'Questionario de qualidade do serviço'
+            form.user = user
+            form.questions = question_1
+            form.questions = question_2
+            form.save()
+
+            return redirect('attendance:quiz_form')
+
+        return redirect('attendance:quiz_form')
+            
 
 
 

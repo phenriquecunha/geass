@@ -1,5 +1,5 @@
 from django import forms
-from .models import Register, Client
+from .models import Register, Quiz
 
 class RegisterCreateForm(forms.ModelForm):
     class Meta:
@@ -29,46 +29,21 @@ class RegisterCreateForm(forms.ModelForm):
             }),
         }
 
-class ControlQualityCreateForm(forms.ModelForm):
+class QuizCreateForm(forms.ModelForm):
     class Meta:
-        model = Client
+        model = Quiz
         fields = [
-            'name',
-            'city',
-            'district',
-            'street',
-            'latitude',
-            'longitude',
-            'service'
+            'client',
+            'note',
         ]
         widgets = {
-            'name': forms.TextInput(attrs={
+            'client': forms.Select(attrs={
                 'class': 'form-control',
-                'placeholder': 'Nome'
+                'placeholder': 'Cliente'
             }),
-            'city': forms.TextInput(attrs={
+            'note': forms.Textarea(attrs={
                 'class': 'form-control',
-                'placeholder': 'Cidade'
-            }),
-            'district': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Bairro'
-            }),
-            'street': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Rua'
-            }),
-            'latitude': forms.NumberInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Latitude'
-            }),
-            'longitude': forms.NumberInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Longitude'
-            }),
-            'service': forms.Select(attrs={
-                'class': 'form-control',
-                'placeholder': 'Plano'
+                'placeholder': 'Observação'
             }),
         }
 

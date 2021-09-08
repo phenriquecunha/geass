@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% load widget_tweaks %}
+
+{% block style_sheets %}
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{% static 'admin-lte/plugins/select2/css/select2.min.css' %}">
+  <link rel="stylesheet" href="{% static 'admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}">
+{% endblock %}
+
+{% block title %}Registro de Atendimento{% endblock title %}
+
+{% block content %}
+  <h2>Questionário de qualidade do serviço</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+    <div class="form-group">
+      <label>
+        Pergunta 1
+      </label>
+      <input type="text" name="answer_1">
+    </div>
+
+    {% for field in form.visible_fields %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+            {% for error in field.errors %}
+                <span class="help-block">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <div class="form-group">
+      <button type="submit" class="btn btn-success">
+        <span class="glyphicon glyphicon-ok"></span> Save
+      </button>
+      <a href="{% url 'pages:home' %}" class="btn btn-default">Cancel</a>
+    </div>
+  </form>
+{% endblock %}

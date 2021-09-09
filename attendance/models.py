@@ -64,23 +64,25 @@ class Client(TimeStampedModel):
     def __str__(self):
         return self.name
 
-class Question(TimeStampedModel):
-    name = models.CharField('Nome', max_length=255)
-    answer = models.IntegerField('Resposta', max_length=255)
-    user = models.ForeignKey(User, on_delete=CASCADE, null=True)
-    
-    def __str__(self):
-        return self.name
-
 class Quiz(TimeStampedModel):
     name = models.CharField('Nome', max_length=255)
-    client = models.ForeignKey(Client, on_delete=CASCADE)
-    questions = models.ForeignKey(Question, on_delete=CASCADE)
+    client = models.ForeignKey(Client, on_delete=CASCADE, unique=True)
     note = models.TextField('Observação')
     user = models.ForeignKey(User, on_delete=CASCADE, null=True)
 
     def __str__(self):
         return self.name
+
+class Question(TimeStampedModel):
+    name = models.CharField('Nome', max_length=255)
+    answer = models.IntegerField('Resposta')
+    quiz = models.ForeignKey(Quiz, on_delete=CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=CASCADE, null=True)
+    
+    def __str__(self):
+        return self.name
+
+
 
 
 

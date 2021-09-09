@@ -22,7 +22,19 @@
       <label>
         Pergunta 1
       </label>
-      <input type="text" name="answer_1">
+      <input class="form-control" type="number" name="answer_1">
+    </div>
+
+    <div class="form-group">
+      <label for="customRange1">Custom range</label>
+      <input name="answer_2" type="range" aria-valuemin="0" aria-valuemax="10" class="custom-range" id="customRange1">
+    </div>
+
+    <div class="form-group">
+      <label>
+        Pergunta 3
+      </label>
+      <input class="form-control" type="number" name="answer_3">
     </div>
 
     {% for field in form.visible_fields %}

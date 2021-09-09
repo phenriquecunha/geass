@@ -31,8 +31,8 @@ class ClientAdmin(admin.ModelAdmin):
 class QuestionAdmin(admin.ModelAdmin):
     list_display = [
         '__str__',
-        'name',
         'answer',
+        'quiz',
         'user',
     ]
 
@@ -40,9 +40,7 @@ class QuestionAdmin(admin.ModelAdmin):
 class QuizAdmin(admin.ModelAdmin):
     list_display = [
         '__str__',
-        'name',
         'client',
-        'questions',
         'note',
         'user',
     ]
@@ -51,7 +49,6 @@ class QuizAdmin(admin.ModelAdmin):
 class QuizAdmin(admin.ModelAdmin):
     list_display = [
         '__str__',
-        'nameFlat',
         'infrastructure',
         'user',
     ]

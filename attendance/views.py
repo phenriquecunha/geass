@@ -36,29 +36,32 @@ class ControlQualityView(CreateView):
         user = self.request.user
 
         if self.request:
-            question_1 = Question.objects.create(
+            quiz = form.save(commit=False)
+            quiz.name = 'Questionario de qualidade do serviço'
+            quiz.user = user
+            quiz.save()
+
+            Question.objects.create(
                 name = 'De 0 a 10 . . .',
                 answer = formPost['answer_1'],
-                user = user
-            )
-
-            question_2 = Question.objects.create(
-                name = formPost['name_question_2'],
-                answer = formPost['answer_2'],
+                quiz = quiz,
                 user = user
             )
 
             Question.objects.create(
-                name = formPost['name_question_3'],
-                answer = formPost['answer_3'],
+                name = 'De 0 a 15 . . .',
+                answer = formPost['answer_2'],
+                quiz = quiz,
                 user = user
             )
 
-            form.name = 'Questionario de qualidade do serviço'
-            form.user = user
-            form.questions = question_1
-            form.questions = question_2
-            form.save()
+            Question.objects.create(
+                name = 'De 0 a 20 . . .',
+                answer = formPost['answer_3'],
+                quiz = quiz,
+                user = user
+            )
+
 
             return redirect('attendance:quiz_form')
 
